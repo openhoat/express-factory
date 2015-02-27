@@ -12,16 +12,16 @@ Easy setup an Express instance
 var expressFactory = require('express-factory')
   , config, expressInstance;
 
-  config = {
-    port: 3009 // default port : 3000
-  };
-  expressInstance = expressFactory(config);
-  expressInstance.start(function () {
-    ...
-    expressInstance.stop(function () {
-      ... // done
-    });
+config = {
+  port: 3009 // default port : 3000
+};
+expressInstance = expressFactory(config);
+expressInstance.start(function () {
+  ...
+  expressInstance.stop(function () {
+    ... // done
   });
+});
 ```
 
 @TODO complete
