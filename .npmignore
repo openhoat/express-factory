@@ -1,6 +1,6 @@
 .idea
 dist
-examples
+samples
 test
 tmp
 .gitignore
