@@ -28,7 +28,7 @@ Result :
 
 ## How it works
 
-express-factory creates an instance of an express server (Express class), with following features :
+express-factory creates instances of express servers (Express class), with following features :
 
 - init method : initialize express configuration and components like middlewares, routers, routes
     - arguments : optional config
