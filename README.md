@@ -195,4 +195,40 @@ body : It works!
 INFO  - express-factory:140 - 5ms - server is closed
 ```
 
+### Promises : [sample5.js](https://github.com/openhoat/express-factory/blob/master/samples/sample5.js)
+
+```javascript
+var expressFactory = require('express-factory')
+  , Promise = require('bluebird')
+  , get = Promise.promisify(require('request').get)
+  , expressInstance;
+
+expressInstance = expressFactory();
+
+expressInstance
+  .start()
+  .then(function () {
+    return get('http://localhost:3000');
+  })
+  .spread(function (res, body) {
+    console.log('body :', body);
+  })
+  .then(function () {
+    return expressInstance.stop();
+  })
+  .catch(function (err) {
+    console.error(err.stack);
+  });
+```
+
+Result :
+
+```bash
+$ node samples/sample5
+INFO  - express-factory:126 - 188ms - server is listening on localhost:3000
+HTTP  - logger:64 - 20ms - 127.0.0.1 - GET / - 200 - ?
+body : It works!
+INFO  - express-factory:140 - 6ms - server is closed
+```
+
 Enjoy !
