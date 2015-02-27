@@ -12,6 +12,14 @@ Easy setup an Express instance
 $ npm install express-factory --save
 ```
 
+## Prerequisite
+
+Due to lack of dependency with express in this project, you have to install yourself express module in your project, this let you choose the version you want :
+
+```bash
+$ npm install express --save
+```
+
 ## Getting started
 
 Run an express server with one line :
