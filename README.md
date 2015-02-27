@@ -14,6 +14,23 @@ $ npm install express-factory --save
 
 ## Getting started
 
+Run an express server with one line :
+
+```javascript
+var expressFactory = require('express-factory')
+  , open = require('open');
+
+expressFactory().start();
+
+open('http://localhost:3000/');
+```
+
+Result :
+
+![Screen shot](https://raw.githubusercontent.com/openhoat/express-factory/master/assets/screenshot.png)
+
+## How it works
+
 express-factory creates an instance of an express server (Express class), with following features :
 
 - init method : initialize express configuration and components like middlewares, routers, routes
