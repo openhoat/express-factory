@@ -6,6 +6,12 @@
 
 Easy setup an Express instance
 
+## Installation
+
+```bash
+$ npm install express-factory --save
+```
+
 ## Getting started
 
 ### Simple express server : [sample1.js](https://github.com/openhoat/express-factory/blob/master/samples/sample1.js)
