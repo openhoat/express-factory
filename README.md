@@ -17,12 +17,9 @@ $ npm install express-factory --save
 Run an express server with one line :
 
 ```javascript
-var expressFactory = require('express-factory')
-  , open = require('open');
+require('express-factory')().start();
 
-expressFactory().start();
-
-open('http://localhost:3000/');
+require('open')('http://localhost:3000/');
 ```
 
 Result :
