@@ -8,7 +8,7 @@ Easy setup an Express instance
 
 ## Getting started
 
-### Simple express server : [sample1.js]()
+### Simple express server : [sample1.js](https://github.com/openhoat/express-factory/blob/master/samples/sample1.js)
 
 ```javascript
 var expressFactory = require('express-factory')
@@ -38,7 +38,7 @@ body : It works!
 INFO  - express-factory:139 - 5ms - server is closed
 ```
 
-### Custom server : [sample1.js]()
+### Custom server : [sample2.js](https://github.com/openhoat/express-factory/blob/master/samples/sample2.js)
 
 ```javascript
 var expressFactory = require('express-factory')
