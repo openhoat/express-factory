@@ -15,6 +15,7 @@ expressInstance = expressFactory({
     }
   }
 });
+
 expressInstance.start(function () {
   request.get('http://localhost:3001/hello', function (err, res, body) {
     if (err) {

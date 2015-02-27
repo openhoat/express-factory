@@ -5,6 +5,7 @@ var expressFactory = require('../lib/express-factory')
   , expressInstance;
 
 expressInstance = expressFactory();
+
 expressInstance.start(function () {
   request.get('http://localhost:3000', function (err, res, body) {
     if (err) {
