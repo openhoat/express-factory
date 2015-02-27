@@ -220,7 +220,7 @@ describe('express factory', function () {
     var fs = require('fs')
       , path = require('path')
       , expressInstance
-      , assetsDir = path.join(__dirname, 'assets')
+      , assetsDir = path.join(__dirname, '..', 'assets')
       , port = 3443;
 
     before(function () {

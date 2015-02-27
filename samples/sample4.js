@@ -4,7 +4,7 @@ var expressFactory = require('../lib/express-factory')
   , request = require('request')
   , path = require('path')
   , fs = require('fs')
-  , assetsDir = path.join(__dirname, '..', 'spec', 'assets')
+  , assetsDir = path.join(__dirname, '..', 'assets')
   , expressInstance;
 
 expressInstance = expressFactory({
