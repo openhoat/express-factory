@@ -11,7 +11,7 @@ expressInstance = expressFactory({
     'views': path.join(__dirname, '..', 'templates')
   },
   engine: { // express app engine
-    'html': ejs.renderFile
+    html: ejs.renderFile
   },
   routers: {
     routes: {

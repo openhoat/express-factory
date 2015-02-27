@@ -64,7 +64,7 @@ describe('express factory', function () {
         });
     });
 
-    it('should get not found response', function () {
+    it('should get not found text response', function () {
       return requestAsync(
         {
           method: 'GET',
@@ -76,6 +76,40 @@ describe('express factory', function () {
           res.headers.should.have.property('content-type', 'text/plain; charset=utf-8');
           should.exist(body);
           body.should.equal('resource not found');
+        });
+    });
+
+    it('should get not found html response', function () {
+      return requestAsync(
+        {
+          method: 'GET',
+          url: util.format('http://localhost:%s/%s', port, 'notfound'),
+          headers: {
+            accept: 'text/html'
+          }
+        })
+        .spread(function (res, body) {
+          should.exist(res);
+          res.should.have.property('statusCode', 404);
+          res.headers.should.have.property('content-type', 'text/html; charset=utf-8');
+          should.exist(body);
+          body.should.equal('<html><body><h3>resource not found</h3></body></html>');
+        });
+    });
+
+    it('should get not found json response', function () {
+      return requestAsync(
+        {
+          method: 'GET',
+          url: util.format('http://localhost:%s/%s', port, 'notfound'),
+          json: true
+        })
+        .spread(function (res, body) {
+          should.exist(res);
+          res.should.have.property('statusCode', 404);
+          res.headers.should.have.property('content-type', 'application/json; charset=utf-8');
+          should.exist(body);
+          body.should.eql({'message': 'resource not found'});
         });
     });
 
@@ -161,7 +195,7 @@ describe('express factory', function () {
         });
     });
 
-    it('should get an error', function () {
+    it('should get a text error', function () {
       return requestAsync(
         {
           method: 'GET',
@@ -173,6 +207,40 @@ describe('express factory', function () {
           res.headers.should.have.property('content-type', 'text/plain; charset=utf-8');
           should.exist(body);
           body.should.equal('Error: test');
+        });
+    });
+
+    it('should get a html error', function () {
+      return requestAsync(
+        {
+          method: 'GET',
+          url: util.format('http://localhost:%s/%s', port, 'error'),
+          headers: {
+            accept: 'text/html'
+          }
+        })
+        .spread(function (res, body) {
+          should.exist(res);
+          res.should.have.property('statusCode', 500);
+          res.headers.should.have.property('content-type', 'text/html; charset=utf-8');
+          should.exist(body);
+          body.should.equal('<html><body><h3>Error: test</h3></body></html>');
+        });
+    });
+
+    it('should get a json error', function () {
+      return requestAsync(
+        {
+          method: 'GET',
+          url: util.format('http://localhost:%s/%s', port, 'error'),
+          json: true
+        })
+        .spread(function (res, body) {
+          should.exist(res);
+          res.should.have.property('statusCode', 500);
+          res.headers.should.have.property('content-type', 'application/json; charset=utf-8');
+          should.exist(body);
+          body.should.eql({error: 'Error: test'});
         });
     });
 
@@ -380,6 +448,72 @@ describe('express factory', function () {
 
   });
 
+  describe('use express instance and a global body parser middleware', function () {
+
+    var expressInstance
+      , port = 3001;
+
+    before(function () {
+      var bodyParser = require('body-parser')
+        , contact;
+      expressInstance = expressFactory({
+        port: port,
+        use: bodyParser.json(),
+        routers: {
+          routes: [{
+            method: 'GET',
+            path: '/contact',
+            middleware: function (req, res) {
+              res.json(contact);
+            }
+          }, {
+            method: 'POST',
+            path: '/contact',
+            middleware: function (req, res) {
+              contact = req.body;
+              res.status(201).end();
+            }
+          }]
+        }
+      });
+      return expressInstance.start();
+    });
+
+    after(function () {
+      return expressInstance.stop();
+    });
+
+    it('should get contact resource', function () {
+      var contact = {firstName: 'John', lastName: 'Doe', email: 'john@doe.com'};
+      return requestAsync(
+        {
+          method: 'POST',
+          url: util.format('http://localhost:%s/%s', port, 'contact'),
+          json: true,
+          body: contact
+        })
+        .spread(function (res/*, body*/) {
+          should.exist(res);
+          res.should.have.property('statusCode', 201);
+        })
+        .then(function () {
+          return requestAsync({
+            method: 'GET',
+            url: util.format('http://localhost:%s/%s', port, 'contact'),
+            json: true
+          });
+        })
+        .spread(function (res, body) {
+          should.exist(res);
+          res.should.have.property('statusCode', 200);
+          res.headers.should.have.property('content-type', 'application/json; charset=utf-8');
+          should.exist(body);
+          body.should.eql(contact);
+        });
+    });
+
+  });
+
   describe('use express instance and body parser middleware', function () {
 
     var expressInstance
@@ -460,7 +594,7 @@ describe('express factory', function () {
           'view engine': 'html',
           'views': path.join(__dirname, '..', 'templates')
         },
-        engine: {'html': ejs.renderFile},
+        engine: {html: ejs.renderFile},
         routers: {
           routes: {
             path: '/',
@@ -477,12 +611,93 @@ describe('express factory', function () {
       return expressInstance.stop();
     });
 
-    it('should get contact resource', function () {
+    it('should get hello view', function () {
+      var contact = {firstName: 'John', lastName: 'Doe', email: 'john@doe.com'};
+      return requestAsync('http://localhost:3000/')
+        .spread(function (res, body) {
+          should.exist(res);
+          res.should.have.property('statusCode', 200);
+          should.exist(body);
+          body.should.equal('<!DOCTYPE html>\n' +
+          '<html>\n' +
+          '<head>\n' +
+          '  <meta charset="UTF-8">\n' +
+          '  <title>Hello!</title>\n' +
+          '</head>\n' +
+          '<body>\n' +
+          '<h3>Hello!</h3>\n' +
+          '</body>\n' +
+          '</html>');
+        });
+    });
+
+  });
+
+  describe('use express with direct start', function () {
+
+    var path = require('path')
+      , ejs = require('ejs')
+      , expressInstance;
+
+    before(function () {
+      expressInstance = expressFactory();
+      return expressInstance.start({
+        set: {
+          'view engine': 'html',
+          'views': path.join(__dirname, '..', 'templates')
+        },
+        engine: {html: ejs.renderFile},
+        routers: {
+          routes: {
+            path: '/',
+            middleware: function (req, res) {
+              res.render('home', {content: 'Hello!'});
+            }
+          }
+        }
+      });
+    });
+
+    after(function () {
+      return expressInstance.stop();
+    });
+
+    it('should get contact resource with direct start', function () {
       var contact = {firstName: 'John', lastName: 'Doe', email: 'john@doe.com'};
       return requestAsync('http://localhost:3000/')
         .spread(function (res/*, body*/) {
           should.exist(res);
           res.should.have.property('statusCode', 200);
+        });
+    });
+
+  });
+
+  describe('use express with callback', function () {
+
+    var expressInstance;
+
+    before(function (done) {
+      expressInstance = expressFactory();
+      return expressInstance.start(done);
+    });
+
+    after(function () {
+      return expressInstance.stop();
+    });
+
+    it('should get welcome response with callback', function () {
+      return requestAsync(
+        {
+          method: 'GET',
+          url: util.format('http://localhost:3000')
+        })
+        .spread(function (res, body) { // Use of spread to have 2 arguments instead of an array
+          should.exist(res);
+          res.should.have.property('statusCode', 200);
+          res.headers.should.have.property('content-type', 'text/plain; charset=utf-8');
+          should.exist(body);
+          body.should.equal('It works!');
         });
     });
 
