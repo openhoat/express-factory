@@ -1,0 +1,38 @@
+{
+  "node": true,
+  "browser": true,
+  "esnext": true,
+  "bitwise": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "immed": true,
+  "indent": 2,
+  "latedef": true,
+  "newcap": false,
+  "noarg": true,
+  "quotmark": "single",
+  "undef": true,
+  "unused": true,
+  "strict": true,
+  "trailing": true,
+  "smarttabs": true,
+  "laxcomma": true,
+  "globals": {
+    /* MOCHA */
+    "describe": false,
+    "xdescribe": false,
+    "it": false,
+    "xit": false,
+    "before": false,
+    "beforeEach": false,
+    "after": false,
+    "afterEach": false
+  },
+  "expr": true,
+  "evil": true,
+  "-W069": true,
+  "-W079": true,
+  "-W083": true,
+  "-W109": true
+}

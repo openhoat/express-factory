@@ -1,0 +1,9 @@
+.idea
+dist
+examples
+test
+tmp
+.gitignore
+.travis.yml
+Gruntfile.js
+jshint.json
