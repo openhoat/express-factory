@@ -24,6 +24,4 @@ expressInstance.start(function () {
 });
 ```
 
-@TODO complete
-
-Enjoy !
+to be continued...
