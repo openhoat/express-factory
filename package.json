@@ -1,6 +1,6 @@
 {
   "name": "express-factory",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Easy setup an Express instance",
   "main": "lib/express-factory.js",
   "author": "Olivier Penhoat <openhoat@gmail.com> (http://headwood.net/)",
@@ -42,6 +42,7 @@
   "devDependencies": {
     "body-parser": "1.12.0",
     "chai": "1.10.0",
+    "ejs": "^2.3.1",
     "grunt": "0.4.5",
     "grunt-contrib-clean": "0.6.0",
     "grunt-contrib-jshint": "0.10.0",

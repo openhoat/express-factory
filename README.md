@@ -239,4 +239,36 @@ body : It works!
 INFO  - express-factory:140 - 6ms - server is closed
 ```
 
+### EJS : [sample6.js](https://github.com/openhoat/express-factory/blob/master/samples/sample6.js)
+
+```javascript
+var expressFactory = require('express-factory')
+  , path = require('path')
+  , ejs = require('ejs')
+  , expressInstance;
+
+expressInstance = expressFactory({
+  set: { // express app set
+    'view engine': 'html',
+    'views': path.join(__dirname, '..', 'templates')
+  },
+  engine: { // express app engine
+    'html': ejs.renderFile
+  },
+  routers: {
+    routes: {
+      path: '/',
+      middleware: function (req, res) {
+        res.render('home', {content: 'Hello!'});
+      }
+    }
+  }
+});
+expressInstance.start();
+```
+
+Result :
+
+![Screen shot hello](https://raw.githubusercontent.com/openhoat/express-factory/master/assets/screenshot-hello.png)
+
 Enjoy !

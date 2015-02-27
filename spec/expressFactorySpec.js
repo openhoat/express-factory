@@ -448,4 +448,44 @@ describe('express factory', function () {
 
   });
 
+  describe('use express instance with ejs', function () {
+
+    var path = require('path')
+      , ejs = require('ejs')
+      , expressInstance;
+
+    before(function () {
+      expressInstance = expressFactory({
+        set: {
+          'view engine': 'html',
+          'views': path.join(__dirname, '..', 'templates')
+        },
+        engine: {'html': ejs.renderFile},
+        routers: {
+          routes: {
+            path: '/',
+            middleware: function (req, res) {
+              res.render('home', {content: 'Hello!'});
+            }
+          }
+        }
+      });
+      return expressInstance.start();
+    });
+
+    after(function () {
+      return expressInstance.stop();
+    });
+
+    it('should get contact resource', function () {
+      var contact = {firstName: 'John', lastName: 'Doe', email: 'john@doe.com'};
+      return requestAsync('http://localhost:3000/')
+        .spread(function (res/*, body*/) {
+          should.exist(res);
+          res.should.have.property('statusCode', 200);
+        });
+    });
+
+  });
+
 });

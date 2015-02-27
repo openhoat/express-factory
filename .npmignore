@@ -1,9 +1,9 @@
 .idea
-dist
-samples
-test
-tmp
 .gitignore
 .travis.yml
+dist
+samples
+templates
+tmp
 Gruntfile.js
 jshint.json
