@@ -4,7 +4,7 @@
 
 ## Express factory
 
-Easy setup an Express instance
+Express factory provides an easy way to setup [express](http://expressjs.com/) servers with a simple configuration object.
 
 ## Installation
 
@@ -14,7 +14,7 @@ $ npm install express-factory --save
 
 ## Prerequisite
 
-Due to lack of dependency with express in this project, you have to install yourself express module in your project, this let you choose the version you want :
+Express factory does not declare any module dependency with express, so it's up to you to declare express module dependency in your project, this let you choose the version you want :
 
 ```bash
 $ npm install express --save
@@ -36,7 +36,7 @@ Result :
 
 ## How it works
 
-express-factory creates instances of express servers (Express class), with following features :
+Express factory creates instances of express servers (Express class), with following features :
 
 - init method : initialize express configuration and components like middlewares, routers, routes
     - arguments : optional config
