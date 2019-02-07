@@ -37,7 +37,7 @@
     "bluebird": "2.9.9",
     "hw-logger": "1.0.9",
     "instance-factory": "0.0.1",
-    "lodash": "3.2.0"
+    "lodash": "4.17.11"
   },
   "devDependencies": {
     "body-parser": "1.12.0",
