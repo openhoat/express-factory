@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "bluebird": "2.9.9",
-    "hw-logger": "1.0.9",
+    "hw-logger": "1.1.10",
     "instance-factory": "0.0.1",
     "lodash": "3.2.0"
   },
